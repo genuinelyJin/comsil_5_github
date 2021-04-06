@@ -1,0 +1,21 @@
+if [ $# == 0 ]
+then 
+	echo "Usage: phone searchfor [...searchfor]"
+	echo "(You didn't tell me what you want to search for.)"
+else
+	num=$#
+	insert=($@)
+	
+	n=0
+	edit=""
+	while [ $n -lt ${num} ]
+	do
+		target=${insert[n]}
+		edit="${edit}$target|"
+       		((n++))
+	done
+
+	editf=${edit:0:${#edit}-1}
+	egrep -i $editf mydata | ./display.awk
+
+fi
